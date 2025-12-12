@@ -3,10 +3,11 @@ import { format } from "date-fns";
 import { useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { IconCheck, IconEllipsis, IconMinus, IconSparks } from "@humansignal/icons";
-import { Userpic, Button } from "@humansignal/ui";
-import { Dropdown, Menu, Pagination } from "../../components";
+import { Userpic, Button, Dropdown, Tooltip } from "@humansignal/ui";
+import { Menu, Pagination } from "../../components";
 import { cn } from "../../utils/bem";
 import { absoluteURL } from "../../utils/helpers";
+import { ProjectStateChip } from "@humansignal/app-common";
 
 const DEFAULT_CARD_COLORS = ["#FFFFFF", "#FDFDFC"];
 
@@ -80,7 +81,13 @@ const ProjectCard = ({ project }) => {
       <div className={cn("project-card").mod({ colored: !!color }).toClassName()} style={projectColors}>
         <div className={cn("project-card").elem("header").toClassName()}>
           <div className={cn("project-card").elem("title").toClassName()}>
-            <div className={cn("project-card").elem("title-text").toClassName()}>{project.title ?? "New project"}</div>
+            <div className={cn("project-card").elem("title-text-wrapper").toClassName()}>
+              <Tooltip title={project.title ?? "New project"}>
+                <div className={cn("project-card").elem("title-text").toClassName()}>
+                  {project.title ?? "New project"}
+                </div>
+              </Tooltip>
+            </div>
 
             <div
               className={cn("project-card").elem("menu").toClassName()}
@@ -102,6 +109,12 @@ const ProjectCard = ({ project }) => {
                 </Button>
               </Dropdown.Trigger>
             </div>
+
+            {project.state && (
+              <div className={cn("project-card").elem("state-chip").toClassName()}>
+                <ProjectStateChip state={project.state} projectId={project.id} interactive={false} />
+              </div>
+            )}
           </div>
           <div className={cn("project-card").elem("summary").toClassName()}>
             <div className={cn("project-card").elem("annotation").toClassName()}>
@@ -128,7 +141,7 @@ const ProjectCard = ({ project }) => {
         <div className={cn("project-card").elem("description").toClassName()}>{project.description}</div>
         <div className={cn("project-card").elem("info").toClassName()}>
           <div className={cn("project-card").elem("created-date").toClassName()}>
-            {format(new Date(project.created_at), "dd MMM 'yy, HH:mm")}
+            {format(new Date(project.created_at), "dd MMM yyyy, HH:mm")}
           </div>
           <div className={cn("project-card").elem("created-by").toClassName()}>
             <Userpic src="#" user={project.created_by} showUsernameTooltip />

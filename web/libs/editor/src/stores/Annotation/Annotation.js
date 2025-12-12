@@ -668,6 +668,10 @@ const _Annotation = types
           const points = currentRegion?.points?.length ?? 0;
 
           stopDrawingAfterNextUndo = points <= 1;
+        } else if (currentRegion?.type === "vectorregion") {
+          const vertices = currentRegion?.vertices?.length ?? 0;
+
+          stopDrawingAfterNextUndo = vertices <= 1;
         }
 
         history.undo();
@@ -973,7 +977,8 @@ const _Annotation = types
       //   }
       // };
 
-      Hotkey.setScope(Hotkey.DEFAULT_SCOPE);
+      const { enableHotkeys } = self.store.settings;
+      Hotkey.setScope(enableHotkeys ? Hotkey.DEFAULT_SCOPE : "__none__");
     },
 
     createResult(areaValue, resultValue, control, object, skipAfrerCreate = false, additionalStates = []) {

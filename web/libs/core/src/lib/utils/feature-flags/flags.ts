@@ -79,11 +79,6 @@ export const FF_SYNCED_BUFFERING = "fflag_fix_front_fit_31_synced_media_bufferin
 export const FF_SUMMARY = "fflag_feat_front_leap_2036_annotations_summary";
 
 /**
- * TimeSeries Multi-channel functionality
- */
-export const FF_MULTICHANNEL_TS = "fflag_feat_front_bros58_timeseries_multichannel_short";
-
-/**
  * Enables enterprise email notifications
  */
 export const FF_ENTERPRISE_EMAIL_NOTIFICATIONS = "fflag_feat_front_fit_183_email_notifications_short";
@@ -113,3 +108,8 @@ export const FF_MULTIPLE_LABELS_REGIONS = "fflag_feat_front_bros_327_multiple_la
  * Agreement Filtered
  */
 export const FF_AGREEMENT_FILTERED = "fflag_feat_utc_239_filterable_agreement_column_short";
+
+/**
+ * FSM State Fields
+ */
+export const FF_FSM_STATE_FIELDS = "fflag_feat_fit_710_fsm_state_fields";
